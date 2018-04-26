@@ -23,14 +23,24 @@ def main():
 
     
     pattern = regex.compile(r"(" + gene_bnrf + r"){e<=1}", flags=regex.IGNORECASE)
-    result = pattern.search(read)
+    result = pattern.search(newread)
+    
     if result:
         print(result.start(), result.end())
 
+    file = open("bnrf1","a") 
+
+    for i in range(len(r1)):
+        # Extract - from specific locations
+        newread = extract_characters_indices(r1[i], nvec)
+        file.write(str(newread[result.start()+1:result.end()]))
+        file.write("\n")
+        
+    file.close()
+# Function to extract characters at particular indices from a string
 def extract_characters_indices(string, vecindices):
-    print(vecindices)
+    # Add 0 and the length to the start and the end of the string
     vecindices = [0] + vecindices + [len(string)]
-    print(vecindices)
     newread = ''
     for i in range(len(vecindices) - 1):
 
