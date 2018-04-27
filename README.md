@@ -3,8 +3,7 @@
 
 # Code to extract open reading frames (ORFs) from a multiple sequence alignment
 # It works by taking an MSA and removing all - from the reference sequence (must be top of file)
-# It then matches the refseq to the refseq CDS for a given ORF and extracts that region from
-# all the sequences in the MSA, thus producing a gene-by-gene 'chunked' MSA
+# It then matches the refseq to the refseq CDS for a given ORF and extracts that region from all the sequences in the MSA, thus producing a gene-by-gene 'chunked' MSA
 
 ## Installation instructions
 
