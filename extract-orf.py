@@ -1,4 +1,5 @@
 from Bio import SeqIO
+from Bio.Seq import Seq
 import argparse
 import gzip
 import regex
@@ -25,9 +26,9 @@ def main():
 
     # Get genes
     gheaders, genes = make_read_list(args.file2)
-    # Corresponding to BNRF1
-    gene = genes[2]
-
+    # Corresponding to BWRF1
+    gene = revcom(genes[0])
+    
     # Pattern matching using regex
     pattern = regex.compile(r"(" + gene + r"){e<=1}", flags=regex.IGNORECASE|regex.BESTMATCH)
     result = pattern.search(newread)
@@ -37,18 +38,23 @@ def main():
         print(result.start(), result.end())
 
     # Write to a fasta file
-    file = open("bnrf1.fasta","w") 
+    file = open("bhlf1.fasta","w") 
 
     for i in range(len(r1)):
         # Extract - from specific locations
         newread = extract_characters_indices(r1[i], nvec)
         file.write(">" + str(headers[i]))
         file.write("\n")
-        file.write(str(newread[result.start()+1:result.end()]))
+        #file.write(str(newread[24828:25980]))
+        file.write(str(newread[result.start():result.end()]))
         file.write("\n")
         
     file.close()
 
+# Take reverse complement
+def revcom(seq):
+    rc = str(Seq(seq).reverse_complement())
+    return(rc)
 
 # Function to extract characters at particular indices from a string
 def extract_characters_indices(string, vecindices):
